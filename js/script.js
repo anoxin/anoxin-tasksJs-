@@ -1,70 +1,41 @@
-const todoControl = document.querySelector('.todo-control');
-const headerInput = document.querySelector('.header-input');
-const todoList = document.querySelector('.todo-list');
-const todoCompleted = document.querySelector('.todo-completed');
-const todoRemove = document.querySelector('.todo-remove');
-
-let toDoData = [];
-
-let myFunc = () => {
-    toDoData = JSON.parse(localStorage.getItem('user'));
-    render();
+const DomElement = function (selector, height, bg, fontSize, text) {
+    this.selector = selector;
+    this.height = height;
+    this.bg = bg;
+    this.fontSize = fontSize;
+    this.text = text;
 };
 
-const render = function () {
-    todoList.innerHTML = '';
-    todoCompleted.innerHTML = '';
-    toDoData.forEach(function (item) {
-        const li = document.createElement('li');
-        li.classList.add('todo-item');
-        li.innerHTML = '<span class="text-todo">' + item.text + '</span>' +
-        '<div class="todo-buttons">' +
-		'<button class="todo-remove"></button>' +
-		'<button class="todo-complete"></button>' +
-		'</div>';
-
-       if (item.completed) {
-            todoCompleted.append(li);
-        } else {
-            todoList.append(li);
-        }
-        li.querySelector('.todo-complete').addEventListener('click', function () {
-            item.completed = !item.completed;
-            render();
-        });
-
-        li.querySelector('.todo-remove').addEventListener('click', function () {
-            
-            let result = toDoData.findIndex(function(item) {
-                return item.text === li.innerText;
-            });
-            toDoData.splice(result, 1);
-            localStorage.user = JSON.stringify(toDoData);
-            render();
-        });
-        localStorage.user = JSON.stringify(toDoData);
-    });
-};
-
-todoControl.addEventListener('submit', function (event) {
-    event.preventDefault();
-    let checkingName = true;
-
-    const newArr = toDoData.filter(function(item) {
-        return item.text === headerInput.value;
-    });
-
-    if (headerInput.value !== '' && newArr.length == 0) {
-        const newToDo = {
-            text: headerInput.value,
-            completed: false
-        };
-        toDoData.push(newToDo);
-        headerInput.value = '';
-
-        render();
+DomElement.prototype.elem = function () {
+    if (this.selector[0] === '.') {
+        const block = document.createElement('p');
+        block.classList.add(this.selector);
+        document.querySelector('body').prepend(block);
+        block.textContent = this.text;
+        block.style.cssText=`height: ${this.height}px;
+        background-color: ${this.bg};
+        font-size: ${this.fontSize}px;
+        width: 500px;
+        text-align: center;
+      `;
     }
- 
-});
+    if (this.selector[0] === '#') {
+        const best = document.createElement('p');
+        best.id = this.selector;
+        document.querySelector('body').prepend(best);
+        best.textContent = this.text;
+        best.style.cssText=`height: ${this.height}px;
+        background-color: ${this.bg};
+        font-size: ${this.fontSize}px;
+        width: 500px;
+        text-align: center;
+      `;
+    }
 
-myFunc();
+};
+
+const newObj1 = new DomElement('.block', '50', 'red', '40', 'Это объект с классом block');
+const newObj2 = new DomElement('#best', '50', 'green', '40', 'Это объект с id best' );
+
+newObj2.elem();
+newObj1.elem();
