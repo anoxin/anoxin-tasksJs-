@@ -1,94 +1,74 @@
-document.addEventListener("DOMContentLoaded", ready);
 
-const DomElement = function (selector, height, bg, fontSize, text, marginTop, marginLeft) {
+const DomElement = function (selector, height, width, bg, fontSize, text, position) {
     this.selector = selector;
     this.height = height;
     this.bg = bg;
     this.fontSize = fontSize;
     this.text = text;
-    this.width = this.height;
-    this.marginTop = marginTop;
-    this.marginLeft = marginLeft; 
+    this.width = width;
+    this.position = position;
 };
 
-DomElement.prototype.elem = function () {
+DomElement.prototype.addElem = function () {
+    const newElem = document.createElement('p');
+    const qualrat = document.createElement('div');
     if (this.selector[0] === '.') {
-        const block = document.createElement('p');
-        block.classList.add(this.selector);
-        document.querySelector('body').prepend(block);
-        block.textContent = this.text;
-        block.style.cssText=`height: ${this.height}px;
-        background-color: ${this.bg};
-        font-size: ${this.fontSize}px;
-        width: 500px;
-        text-align: center;
-      `;
+        newElem.classList.add(this.selector.substring(1));
     }
     if (this.selector[0] === '#') {
-        const best = document.createElement('p');
-        best.id = this.selector;
-        document.querySelector('body').prepend(best);
-        best.textContent = this.text;
-        best.style.cssText=`height: ${this.height}px;
-        background-color: ${this.bg};
-        font-size: ${this.fontSize}px;
-        width: 500px;
-        text-align: center;
-      `;
+        newElem.id = this.selector.substring(1);
     }
+    if (this.selector === 'square') {
+        newElem.id = this.selector;
+    }
+    document.body.prepend(newElem);
+    newElem.textContent = this.text;
+    newElem.style.cssText=`height: ${this.height}px;
+    background-color: ${this.bg};
+    position: ${this.position};
+    font-size: ${this.fontSize}px;
+    width: ${this.width}px;
+    text-align: center;
+  `;
 };
-
-DomElement.prototype.elem2 = function () {
-    let top = 0;
-    let left = 0;
+    
+const moveSquare = () => {
+    let vertical = 200;
+    let horizontal = 0;
+    document.getElementById('square').style.top = vertical + 'px';
     document.addEventListener('keydown', function(event) {
         if (event.code == 'ArrowUp') { 
-            top = top - 10;
-            start();
+            vertical = vertical - 10;
         }
         if (event.code == 'ArrowDown') {
-            top = top + 10;
-            start();
+            vertical = vertical + 10;
         }
         if (event.code == 'ArrowLeft') {
-            left = left - 10;
-            start();
+            horizontal = horizontal  - 10;
         }
         if (event.code == 'ArrowRight') {
-            left = left + 10;
-            start();
-        }
-    });
+             horizontal = horizontal  + 10;
+        } 
+        document.getElementById('square').style.top = vertical + 'px';
+        document.getElementById('square').style.left = horizontal + 'px';     
+    });   
     
-    const start = () => {
-        if (document.querySelector('div')) {
-            document.querySelector('div').remove();
-        }
-        
-        const qualrat = document.createElement('div');
-        qualrat.id = this.selector;
-        document.querySelector('body').append(qualrat);
-        qualrat.style.cssText=`height: ${this.height}px;
-        background-color: ${this.bg};
-        font-size: ${this.fontSize}px;
-        width: ${this.width}px;
-        position: absolute;
-        margin-top: ${top}px;
-        margin-left: ${left}px;
-      `;
-      
-    };
-    start();
 };
+
+const newObj1 = new DomElement('.block', '50', '500', 'red', '40', 'Это объект с классом block');
+const newObj2 = new DomElement('#best', '50', '500', 'green', '40', 'Это объект с id best');
+const newObj3 = new DomElement('square', '100', '100', 'yellow', '0', 'Квадрат', 'absolute');
+
+newObj2.addElem();
+newObj1.addElem();
+
+document.addEventListener("DOMContentLoaded", ready);
 
 function ready() {
     // debugger;
-    newObj3.elem2();
+    newObj3.addElem();
+    console.log(1);
+    moveSquare();   
 }
 
-const newObj1 = new DomElement('.block', '50', 'red', '40', 'Это объект с классом block');
-const newObj2 = new DomElement('#best', '50', 'green', '40', 'Это объект с id best');
-const newObj3 = new DomElement('#qualrat', '100', 'yellow', '0', 'Квадрат', '0', '0');
 
-newObj2.elem();
-newObj1.elem();
