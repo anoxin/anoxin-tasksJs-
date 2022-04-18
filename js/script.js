@@ -1,20 +1,23 @@
-class First {
-    constructor () {}
-    hello () {
-        console.log('Привет я метод родителя');
-    }
+const calculator = {
+  sum: function() {
+    return parseFloat(document.getElementById('a').value) +
+     parseFloat(document.getElementById('b').value);
+    
+  },
+  mult: function() {
+    return  parseFloat(document.getElementById('a').value) *
+    parseFloat(document.getElementById('b').value);
+  },
+  show: function() {
+    document.getElementById('sum').addEventListener('click', function() {
+        document.getElementById('res').value = calculator.sum();
+    });
+    document.getElementById('mult').addEventListener('click', function() {
+        document.getElementById('res').value = calculator.mult();
+    });
 
-}
+  }
 
-class Second extends First {
-    constructor () {
-        super();
-    }
-    hello () {
-        super.hello();
-        console.log('А я наследуемый метод');
-    }
-}
-const test = new Second();
+};
 
-test.hello();
+calculator.show();

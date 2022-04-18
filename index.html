@@ -6,16 +6,27 @@
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Наследование, прототипы, конструкторы и классы</title>
-
-	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<title>Калькулятор</title>
+	<link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js" defer></script>
 </head>
 
 <body>
-
-
-	<script src="./js/script.js" defer></script>
-
+	<input type="text" id='a'>
+	<input type="text" id='b'>
+	<button id="sum">сумма</button>
+	<button id="mult">произведение</button>
+	<input type="text" id='res'>
+	<div class="task">
+	    Решить задачу где возможно используй <b>this</b><br>
+	    В объект можно добавлять свои свойства<br>
+	    Есть объект calculator с тремя методами:
+		<ul>
+			<li>sum() возвращает сумму этих двух значений</li>
+			<li>mult() возвращает произведение этих двух значений</li>
+			<li>show() выводит результат вычислений в инпут ".res" объекта</li>
+		</ul>
+	</div>
 
 </body>
 
