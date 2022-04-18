@@ -1,23 +1,11 @@
-const calculator = {
-  sum: function() {
-    return parseFloat(document.getElementById('a').value) +
-     parseFloat(document.getElementById('b').value);
-    
-  },
-  mult: function() {
-    return  parseFloat(document.getElementById('a').value) *
-    parseFloat(document.getElementById('b').value);
-  },
-  show: function() {
-    document.getElementById('sum').addEventListener('click', function() {
-        document.getElementById('res').value = calculator.sum();
-    });
-    document.getElementById('mult').addEventListener('click', function() {
-        document.getElementById('res').value = calculator.mult();
-    });
+function getResult(x, y) {
+    let result = 0;
+    let degree = (x ** y) + '';
+    for (let i = 0; i < degree.length; i++) {
+        result =  result + Number(degree[i]);
+    }
 
+    return result;
   }
-
-};
-
-calculator.show();
+  
+  console.log(getResult(4, 8));
