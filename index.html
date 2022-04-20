@@ -1,22 +1,102 @@
-<!doctype html>
-<html lang="ru">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Особенности современного стандарта ES6</title>
-
-	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/script.js" defer></script>
+    <title>Document</title>
 </head>
 
 <body>
+    <header>
+        <div class="container">
+            <h1 class="title" id="title">Работник</h1>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container">
+            <div class="main-box">
+                <div class="main-controls elements">
+                    <div class="main-controls__views element">
+                        <h3>Фамилия Имя Отчество</h3>
+                        <div class="main-controls__item screen">
+                            <div class="main-controls__input">
+                                <input type="text" placeholder="Фамилия Имя Отчество">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-controls__select">
+                        <h3>Должность</h3>
+                        <select name="views-select">
+                            <option value="0" selected>Должность</option>
+                            <option value="1">Водитель</option>
+                            <option value="2">Слесарь</option>
+                            <option value="3">Инженер</option>
+                        </select>
+                    </div>
+                    <div class="main-controls__views element">
+                        <h3>Возраст</h3>
+                        <div class="main-controls__item other-items percent">
+                            <div class="main-controls__input">
+                                <input type="text" placeholder="30" value="">
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="main-controls__views cms">
+                        <div class="main-controls__item">
+                            <div class="main-controls__checkbox">
+                                <input class="custom-checkbox"  type="checkbox" name="" id="cms-open">
+                                <label for="cms-open">Наличие детей</label>
+                            </div>
+                        </div>
 
-	<script src="./js/script.js" defer></script>
+                        <div class="main-controls__item hidden-cms-variants" style="display: none;">
+                            <div class="main-controls__select">
+                                <select name="views-select" id="cms-select">
+                                    <option value="" selected>Количество детей</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-controls__views element">
+                        <h3>Организация</h3>
+                        <div class="main-controls__item other-items percent">
+                            <div class="main-controls__input">
+                                <input type="text" placeholder="ООО Гиперстрой" value="">
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="main-controls__views element">
+                        <h3>Дата принятия на работу</h3>
+                        <div class="main-controls__item other-items percent">
+                            <div class="main-controls__input">
+                                <input type="text" placeholder="01.01.2022г." value="">
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>
