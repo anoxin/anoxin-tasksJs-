@@ -1,30 +1,28 @@
-let num = Math.floor (Math.random () * (100 - 0 + 1)) + 0;
-
-function one() {
+function startApp(num) {
     let myNum = prompt('Угадай число от 1 до 100');
     
-    function two() {
+    function comparingNumber() {
         if (myNum == '' || myNum == undefined) {
             myNum = prompt('Введи число');
-            two();
+            comparingNumber();
         } else {
             myNum = +myNum;
             if (num < myNum) {
                 myNum = prompt('Загаданное число меньше');
-                two(num);
+                comparingNumber(num);
             } else if (num > myNum) {
                 myNum = prompt('Загаданное число больше');
-                two(num);
+                comparingNumber(num);
             } else if (num === myNum) {
                 alert('Игра окончена');
             } else {
                 myNum = prompt('Введи число');
-                two(num);
+                comparingNumber(num);
             }
 
         }
     }
-    two();
+    comparingNumber();
 }
 
-one(num);
+startApp(Math.floor (Math.random () * (100 - 0 + 1)) + 0);
