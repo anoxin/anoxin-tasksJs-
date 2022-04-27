@@ -6,11 +6,6 @@ const todoRemove = document.querySelector('.todo-remove');
 
 let toDoData = [];
 
-let myFunc = () => {
-    toDoData = JSON.parse(localStorage.getItem('user'));
-    render();
-};
-
 const render = function () {
     todoList.innerHTML = '';
     todoCompleted.innerHTML = '';
@@ -46,9 +41,16 @@ const render = function () {
     });
 };
 
+let myFunc = () => {
+    console.log(localStorage.getItem('user'));
+    if (JSON.parse(localStorage.getItem('user'))) {
+        toDoData = JSON.parse(localStorage.getItem('user'));
+        render();
+    }       
+};
+
 todoControl.addEventListener('submit', function (event) {
     event.preventDefault();
-    let checkingName = true;
 
     const newArr = toDoData.filter(function(item) {
         return item.text === headerInput.value;
