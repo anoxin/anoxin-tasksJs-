@@ -1,0 +1,16 @@
+body {
+    box-sizing: border-box;
+    font-family: serif;
+    color: blue;
+}
+.block {
+    margin: 10px;
+    width: 200px;
+    height: 100px;
+    background-color: red;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/* изменение */
