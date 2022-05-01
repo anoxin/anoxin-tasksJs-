@@ -2,44 +2,31 @@ const form = document.getElementById('form');
 const username = document.getElementById('username');
 const pass = document.getElementById('password');
 
-const getData = (function  () {
-    return fetch('db.json')
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.log(error);
-    }); 
-})();
-
-const sendData = ({url, data = {}, method = 'GET'}) => {
-    return fetch(url, {
-        method: method,
-        body: data,
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        }
-    }).then(response => response.json());
-};
-
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    const user = {
-        login: username.value,
-        password: pass.value
-    };
-    const data = JSON.stringify(user); 
-    sendData({
-        url: 'https://jsonplaceholder.typicode.com/posts', 
-        data: data,
-        method: 'POST'
-    })
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.log(error);
+    new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.addEventListener('readystatechange', () => { 
+            if (request.readyState !== 4) {
+                return;
+            }
+            if (request.status == 201) {
+                resolve();
+            } else {
+                reject(request.status);
+            }
         });
+        const user = {
+            login: username.value,
+            password: pass.value
+        };
+        request.open('POST', 'https://jsonplaceholder.typicode.com/posts');
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify(user));
+        request.onload = () => console.log(request.response);
+    }); 
+ 
 });
+
+
+
