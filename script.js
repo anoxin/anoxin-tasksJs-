@@ -1,4 +1,5 @@
-function startApp(num) {
+function startApp() {
+    const num = Math.floor (Math.random () * (100 - 0 + 1)) + 0;
     let sum = 10;
     let victory = false;
     let answer = false;
@@ -6,39 +7,34 @@ function startApp(num) {
 
     function comparingNumber() {
         sum--;
-        console.log(myNum);
         if (sum < 0) {
             answer = confirm( 'Попытки закончились, хотите сыграть еще?');
+            return;
         } else if (myNum == null) {
             alert('Игра закончена');
-        } else if (myNum == '' || myNum == undefined) {
+            return;
+        } else if (myNum == '' || isNaN(myNum)) {
             sum++;
             myNum = prompt('Введи число! Осталось ' + sum + ' попыток');
-            comparingNumber();
         } else {
-            myNum = +myNum;
-            if (num < myNum) {
-                myNum = prompt('Загаданное число меньше! Осталось ' + sum + ' попыток');
-                comparingNumber(num);
-            } else if (num > myNum) {
-                myNum = prompt('Загаданное число больше Осталось ' + sum + ' попыток');
-                comparingNumber(num);
-            } else if (num === myNum) {
+            if (num == myNum) {
                 victory = confirm('Поздравляю, Вы угадали число ' + num + '!!! Хотели бы сыграть еще?');
+                return victory;
+            } else if (Math.max(num, +myNum) == num) {
+                myNum = prompt('Загаданное число больше! Осталось ' + sum + ' попыток');
             } else {
-                sum++;
-                myNum = prompt('Введи число! Осталось' + sum + ' попыток');
-                comparingNumber(num);
-            }
-
+                myNum = prompt('Загаданное число меньше! Осталось ' + sum + ' попыток');
+            }  
         }
+        comparingNumber();
         
     }
     comparingNumber();
     if (victory == true || answer == true) {
-        startApp(num);
+        startApp();
     }
 }
 
+startApp();
 
-startApp(Math.floor (Math.random () * (100 - 0 + 1)) + 0);
+
