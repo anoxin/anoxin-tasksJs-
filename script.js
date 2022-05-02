@@ -1,17 +1,15 @@
-const form = document.getElementById('form');
-const username = document.getElementById('username');
-const pass = document.getElementById('password');
-
 const getData = (function  () {
     return fetch('db.json')
-    .then(response => response.json())
+    .then(response => response.json());
+})()    
     .then(data => {
-        console.log(data);
+    console.log(data);
+    user(data);
     })
     .catch(error => {
         console.log(error);
-    }); 
-})();
+    });
+
 
 const sendData = ({url, data = {}, method = 'GET'}) => {
     return fetch(url, {
@@ -23,23 +21,19 @@ const sendData = ({url, data = {}, method = 'GET'}) => {
     }).then(response => response.json());
 };
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const user = {
-        login: username.value,
-        password: pass.value
-    };
-    const data = JSON.stringify(user); 
+const user = (data) => {    
+    data = JSON.stringify(data); 
     sendData({
         url: 'https://jsonplaceholder.typicode.com/posts', 
         data: data,
         method: 'POST'
-    })
+     }) 
         .then(data => {
             console.log(data);
         })
         .catch(error => {
             console.log(error);
         });
-});
+
+};
+
