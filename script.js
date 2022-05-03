@@ -36,67 +36,35 @@ font-size: 16px;
 `;
 
 let numLeft = 0;
+let count = 0;
 let active = false;
+let goLeft = true;
 let idInterval;
 
-
-const animate = ({timing, draw, duration}) => {
-
-    let start = performance.now();
-  
-    idInterval = requestAnimationFrame(function animate(time) {
-      let timeFraction = (time - start) / duration;
-      if (timeFraction > 1) {
-        timeFraction = 1;
-      }
-
-      let progress = timing(timeFraction);
-  
-      draw(progress);
-  
-      if (timeFraction < 1) {
-        idInterval = requestAnimationFrame(animate);
-      }
-  
-    });
+const animation = () => {
+    if (goLeft === true) {
+        count++;
+    } else {
+        count--;
+    }
+    idInterval = requestAnimationFrame(animation);
+    
+    if (numLeft < 1000 && goLeft === true) {
+        circle.style.left = count * 5 + 'px';
+        numLeft = +circle.style.left.slice(0, -2);
+        
+    } else {
+        goLeft = false;
+    }
+    if (numLeft > 0  && goLeft === false) {
+        circle.style.left = count * 5 + 'px';
+        numLeft = +circle.style.left.slice(0, -2);
+        console.log('abu');
+    } 
+    if (numLeft <= 0  && goLeft === false) {
+        goLeft = true;
+    }
 };
-
-let sum = 0;
-
-const animation = (goLeft) => {
-    animate({
-        duration: 8000,
-        timing(timeFraction) {
-          return timeFraction;
-        },
-        draw(progress) {
-            let stopLeft = 1000;
-                sum = sum + progress;
-            // if ((progress * stopLeft) < +circle.style.left.slice(0, -2)) {
-            //     return;
-            // }
-            if (numLeft < stopLeft && goLeft === true) {
-                circle.style.left = sum * stopLeft + 'px';
-                numLeft = +circle.style.left.slice(0, -2);
-            } if (numLeft == 1000 && goLeft !== false) {
-                animation(false);
-            }
-            if (numLeft <= stopLeft && goLeft === false) {
-                circle.style.left = (stopLeft - (progress * stopLeft)) + 'px';
-                numLeft = +circle.style.left.slice(0, -2);
-            }
-            if (numLeft == 0 && goLeft !== true) {
-                animation(true);
-            }
-            if (numLeft > 500) {
-                circle.style.background = 'green';
-            } else {
-                circle.style.background = '#83A7C9';
-            }
-        }
-    });
-};
-
 
 start.addEventListener('click', () => {
     if (active) {
@@ -105,6 +73,15 @@ start.addEventListener('click', () => {
     } else {
         animation(true);
         active = true;
+                
     }
-    
+});
+
+reset.addEventListener('click', () => {
+        cancelAnimationFrame(idInterval);
+        circle.style.left = 0 + 'px';
+        count = 0;
+        if (active) {
+            active = false;
+        } 
 });
