@@ -1,4 +1,5 @@
-function startApp(num) {
+function startApp(min, max) {
+    const num = Math.floor (Math.random () * (max - min) + min);
     let myNum = prompt('Угадай число от 1 до 100');
     
     function comparingNumber() {
@@ -25,4 +26,4 @@ function startApp(num) {
     comparingNumber();
 }
 
-startApp(Math.floor (Math.random () * (100 - 0 + 1)) + 0);
+startApp(0, 100);
