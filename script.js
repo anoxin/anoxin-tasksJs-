@@ -1,5 +1,5 @@
-function startApp() {
-    const num = Math.floor (Math.random () * (100 - 0 + 1)) + 0;
+function startApp(min, max) {
+    const num = Math.floor (Math.random () * (max - min) + min);
     let sum = 10;
     let victory = false;
     let answer = false;
@@ -24,6 +24,7 @@ function startApp() {
                 myNum = prompt('Загаданное число больше! Осталось ' + sum + ' попыток');
             } else {
                 myNum = prompt('Загаданное число меньше! Осталось ' + sum + ' попыток');
+
             }  
         }
         comparingNumber();
@@ -31,10 +32,10 @@ function startApp() {
     }
     comparingNumber();
     if (victory == true || answer == true) {
-        startApp();
+        startApp(0, 100);
     }
 }
 
-startApp();
+startApp(0, 100);
 
 
