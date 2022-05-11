@@ -1,41 +1,35 @@
-function startApp(min, max) {
-    const num = Math.floor (Math.random () * (max - min) + min);
-    let sum = 10;
-    let victory = false;
-    let answer = false;
-    let myNum = prompt('Угадай число от 1 до 100!!! У вас есть ' + sum + ' попыток');
+const select = document.querySelector("select");
+const spans = document.querySelectorAll("span");
 
-    function comparingNumber() {
-        sum--;
-        if (sum < 0) {
-            answer = confirm( 'Попытки закончились, хотите сыграть еще?');
-            return;
-        } else if (myNum == null) {
-            alert('Игра закончена');
-            return;
-        } else if (myNum == '' || isNaN(myNum)) {
-            sum++;
-            myNum = prompt('Введи число! Осталось ' + sum + ' попыток');
-        } else {
-            if (num == myNum) {
-                victory = confirm('Поздравляю, Вы угадали число ' + num + '!!! Хотели бы сыграть еще?');
-                return victory;
-            } else if (Math.max(num, +myNum) == num) {
-                myNum = prompt('Загаданное число больше! Осталось ' + sum + ' попыток');
-            } else {
-                myNum = prompt('Загаданное число меньше! Осталось ' + sum + ' попыток');
+const createNewOption = (data) => {
+	for (let i = 0; i < data.length; i++) {
+		let newOption = new Option(data[i].brand, `${data[i].brand}`);
+		select.append(newOption);
+	}
+};
 
-            }  
-        }
-        comparingNumber();
-        
-    }
-    comparingNumber();
-    if (victory == true || answer == true) {
-        startApp(0, 100);
-    }
-}
+const getData = async () => {
+	const response = await fetch('./cars.json');
+	const data = await response.json();
+	createNewOption(data.cars);
+	select.addEventListener("change", (e) => {
+		if (e.target[e.target.selectedIndex].value == "choose") {
+			spans[0].textContent = e.target[e.target.selectedIndex].textContent;
+			spans[1].textContent = "";
+		}
+		data.cars.forEach((elem) => {
+			if (elem.brand == e.target[e.target.selectedIndex].value) {
+				spans[0].textContent = `Тачка ${e.target[e.target.selectedIndex].value} ${elem.model}`;
+				spans[1].textContent = `Цена: ${elem.price}$`;
+			}
+		});
+	});
+};
 
-startApp(0, 100);
-
-
+getData()
+	.then(data => {
+		console.log(data);
+	})
+	.then(error => {
+		console.log(error);
+	});
